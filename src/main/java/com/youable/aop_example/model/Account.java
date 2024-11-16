@@ -1,12 +1,10 @@
 package com.youable.aop_example.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Account {
@@ -24,6 +22,24 @@ public class Account {
 
     private BigDecimal balance;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Builder
+    public Account(
+            String accountNumber,
+            String ownerName,
+            String password,
+            BigDecimal balance
+    ) {
+        this.accountNumber = accountNumber;
+        this.ownerName = ownerName;
+        this.password = password;
+        this.balance = balance;
+    }
+
+    public void addBalance(BigDecimal amount) {
+         balance = balance.add(amount);
+    }
+
+    public void subtractBalance(BigDecimal amount) {
+        balance = balance.subtract(amount);
+    }
 }
