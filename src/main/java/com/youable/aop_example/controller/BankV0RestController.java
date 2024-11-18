@@ -3,6 +3,7 @@ package com.youable.aop_example.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youable.aop_example.dto.request.TransactionRequest;
 import com.youable.aop_example.dto.request.RegistAccountRequest;
+import com.youable.aop_example.dto.response.BaseResponse;
 import com.youable.aop_example.dto.response.RegistAccountResponse;
 import com.youable.aop_example.encryption.AESUtil;
 import com.youable.aop_example.model.Transaction;
@@ -20,10 +21,15 @@ public class BankV0RestController {
     private final BankService bankService;
 
     @PostMapping("/regist")
-    public ResponseEntity<RegistAccountResponse> regist(
+    public ResponseEntity<BaseResponse> regist(
             @RequestBody RegistAccountRequest request
     ) {
-        RegistAccountResponse response = bankService.registAccount(request);
+        RegistAccountResponse registAccountResponse = bankService.registAccount(request);
+        BaseResponse response = BaseResponse.builder()
+                .code("00000")
+                .msg("success")
+                .data(registAccountResponse)
+                .build();
         return ResponseEntity.ok(response);
     }
 
@@ -57,5 +63,13 @@ public class BankV0RestController {
         String encryptString = AESUtil.encrypt(jsonString);
 //        String plainTest = AESUtil.decrypt(encryptString);
         return ResponseEntity.ok().body(encryptString);
+    }
+
+    @PostMapping("/decrypt/test")
+    public ResponseEntity<String> decrypt(
+            @RequestParam(name = "data") String encryptString
+    ) throws Exception {
+        String plainTest = AESUtil.decrypt(encryptString);
+        return ResponseEntity.ok().body(plainTest);
     }
 }
