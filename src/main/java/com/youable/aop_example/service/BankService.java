@@ -1,8 +1,9 @@
 package com.youable.aop_example.service;
 
 import com.youable.aop_example.common.UniqueValueGenerator;
-import com.youable.aop_example.dto.TransactionRequest;
-import com.youable.aop_example.dto.RegistAccountRequest;
+import com.youable.aop_example.dto.request.TransactionRequest;
+import com.youable.aop_example.dto.request.RegistAccountRequest;
+import com.youable.aop_example.dto.response.RegistAccountResponse;
 import com.youable.aop_example.model.Account;
 import com.youable.aop_example.model.Transaction;
 import com.youable.aop_example.repository.AccountRepository;
@@ -16,13 +17,14 @@ public class BankService {
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
 
-    public String registAccount(
+    public RegistAccountResponse registAccount(
             RegistAccountRequest request
     ) {
         String accountNumber = UniqueValueGenerator.getAccountNumber();
         Account account = request.of(accountNumber, request);
         accountRepository.save(account);
-        return accountNumber;
+        RegistAccountResponse response = new RegistAccountResponse(accountNumber);
+        return response;
     }
 
     public Transaction deposit(TransactionRequest request) {

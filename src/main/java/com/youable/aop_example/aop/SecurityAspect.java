@@ -1,12 +1,11 @@
 package com.youable.aop_example.aop;
 
-import com.youable.aop_example.dto.TransactionRequest;
+import com.youable.aop_example.dto.request.TransactionRequest;
 import com.youable.aop_example.model.Account;
 import com.youable.aop_example.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;

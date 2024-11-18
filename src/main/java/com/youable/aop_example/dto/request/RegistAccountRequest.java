@@ -1,14 +1,17 @@
-package com.youable.aop_example.dto;
+package com.youable.aop_example.dto.request;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.youable.aop_example.model.Account;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+@Builder
 @Getter
-@JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegistAccountRequest {
     private String ownerName;
     private String password;
