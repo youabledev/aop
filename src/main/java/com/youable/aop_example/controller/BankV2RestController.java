@@ -28,7 +28,7 @@ public class BankV2RestController {
     private final ObjectMapper objectMapper;
 
     @DecryptRequest
-//    @EncryptResponse
+    @EncryptResponse
     @PostMapping("/regist")
     public ResponseEntity<BaseResponse> regist(
             @RequestBody BaseRequest request
